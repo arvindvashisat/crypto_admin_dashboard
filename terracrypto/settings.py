@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ia$u-_zn2c-#1pfbdbqtn)b8=ep$0=e%96^#@jx)!)_)ttp0w='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
@@ -81,6 +81,9 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
 
@@ -128,3 +131,7 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL =  '/dashboard/'
 CRISPY_TEMPLATE_PACK =  'bootstrap4'
+
+SILENCED_SYSTEM_CHECKS = [
+    'django_mysql.W002',
+]

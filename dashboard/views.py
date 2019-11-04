@@ -8,7 +8,6 @@ def index(request):
 
 def search(request):
     users = User.objects.all()
-
     # Find User on first name
     if 'first_name' in request.GET:
         first_name = request.GET['first_name']

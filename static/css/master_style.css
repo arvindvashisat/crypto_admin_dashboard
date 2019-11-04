@@ -143,7 +143,7 @@ img {
     position: relative;
 }
 .layout-boxed {
-    background: url(../../images/boxed-bg.png) fixed;
+    background: url(img/boxed-bg.png) fixed;
 }
 .content-wrapper, .main-footer {
     -webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
