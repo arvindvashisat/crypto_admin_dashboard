@@ -1,1 +1,101 @@
-<h1> Register </h1>
+{% extends 'base.html' %} {% block content %}
+	<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create Member Account
+      </h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Members</a></li>
+        <li class="breadcrumb-item active">Create Member Account</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+				<div class="col-xl-8 col-lg-7">
+			<div class="box box-solid bg-black">
+				<div class="box-header with-border">
+					<h3 class="box-title">Create Member Account </h3>
+				</div>
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="row">
+
+						    <div class="col-12">
+							<div class="form-group row ">
+								<label class="col-sm-2 col-form-label">First Name </label>
+								<div class="col-sm-10">
+									<input class="form-control " placeholder="Johon" name="first_name" type="text" value="Gaurav">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+                            <div class="form-group row ">
+								<label class="col-sm-2 col-form-label">Last Name </label>
+								<div class="col-sm-10">
+									<input class="form-control " placeholder="Johon" name="last_name" type="text" value="Jain">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+                            <div class="form-group row ">
+								<label class="col-sm-2 col-form-label">Username </label>
+								<div class="col-sm-10">
+									<input class="form-control " placeholder="Johon" name="username" type="text" value="gauravjain">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+							<div class="form-group row ">
+								<label class="col-sm-2 col-form-label">Email Adress</label>
+								<div class="col-sm-10">
+									<input class="form-control" placeholder="johone@dummy.com" name="email" type="text" value="gaurav@sadda.com">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+                            <div class="form-group row ">
+								<label class="col-sm-2 col-form-label">Passwords</label>
+								<div class="col-sm-10">
+									<input class="form-control" placeholder="" name="password" type="password" value="">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+                            <div class="form-group row ">
+								<label class="col-sm-2 col-form-label">Confirm Passwords</label>
+								<div class="col-sm-10">
+									<input class="form-control" placeholder="" name="password2" type="password" value="">
+									<span class="help-block">  </span>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Status</label>
+								<div class="col-sm-10">
+									<select class="form-control custom-select" name="status"><option value="1">Active</option><option value="0" selected="selected">In-active</option></select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label"></label>
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-yellow">Submit</button>
+                                    <a class="btn default" href="">Cancel</a>
+                                </div>
+							</div>
+
+						</div>
+						<!-- /.col --
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.box-body -->
+			</div>
+                </form>
+
+		</div>
+      </div>
+    </section>
+  </div>
+{% endblock %}

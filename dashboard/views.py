@@ -33,7 +33,6 @@ def search(request):
 
 def manager(request):
     users = User.objects.all()
-
     context ={
         'users' : users
     }
@@ -47,11 +46,6 @@ def setting(request):
         'settings': settings
     }
     return render(request, 'dashboard/setting.html', context)
-
-def update_setting(request):
-    obj = Setting.objects.get(pk=1)
-    obj.name = "some_new_value"
-    obj.save()
 
 def live_crypto_prices(request):
     return render(request, 'dashboard/live_crypto_prices.html')

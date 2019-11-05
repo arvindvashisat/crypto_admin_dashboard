@@ -16,6 +16,7 @@
     <!-- Main content -->
     <section class="content">
     {% if users %}
+		{% if profile_users %}
       <div class="row">
         <div class="col-xl-4 col-lg-5">
           <!-- Profile Image -->
@@ -47,52 +48,57 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
-        <div class="col-xl-8 col-lg-7">
-          <div class="box box-solid bg-black">
-			<div class="box-header with-border">
-			  <h3 class="box-title">Personal details</h3>
-			</div>
-			<!-- /.box-header -->
-			<div class="box-body">
-			  <div class="row">
-				<div class="col-12">
-					<div class="form-group row">
-					  <label class="col-sm-2 col-form-label">First Name</label>
-					  <div class="col-sm-10">
-						<input class="form-control" value="{{ users.first_name }}" type="text" placeholder="Johon">
-					  </div>
-					</div>
-					<div class="form-group row">
-					  <label class="col-sm-2 col-form-label">Last Name</label>
-					  <div class="col-sm-10">
-						<input class="form-control" value="{{ users.last_name }}" type="text" placeholder="Doe">
-					  </div>
-					</div>
-					<div class="form-group row">
-					  <label class="col-sm-2 col-form-label">Email Adress</label>
-					  <div class="col-sm-10">
-						<input class="form-control" value="{{ users.email }}" type="email" placeholder="johone@dummy.com">
-					  </div>
-					</div>
-					<div class="form-group row">
-					  <label class="col-sm-2 col-form-label">Phone Number</label>
-					  <div class="col-sm-10">
-						<input class="form-control" type="tel" placeholder="123 456 7890">
-					  </div>
-					</div>
-					<div class="form-group row">
-					  <label class="col-sm-2 col-form-label"></label>
-					  <div class="col-sm-10">
-						<button type="submit" class="btn btn-yellow">Submit</button>
-					  </div>
-					</div>
+			<div class="col-xl-8 col-lg-7">
+			  <div class="box box-solid bg-black">
+				<div class="box-header with-border">
+				  <h3 class="box-title">Personal details</h3>
 				</div>
-				<!-- /.col -->
+				<!-- /.box-header -->
+						<div class="box-body">
+						  <div class="row">
+							  <form method="POST" action="{% url 'update' user.id %}">
+					  			{% csrf_token %}
+									<div class="col-12">
+										<div class="form-group row">
+										  <label class="col-sm-2 col-form-label">First Name</label>
+										  <div class="col-sm-10">
+											<input class="form-control" name= "first_name" value="{{ users.first_name }}" type="text" placeholder="Johon">
+										  </div>
+										</div>
+										<div class="form-group row">
+										  <label class="col-sm-2 col-form-label">Last Name</label>
+										  <div class="col-sm-10">
+											<input class="form-control" name= "last_name" value="{{ users.last_name }}" type="text" placeholder="Doe">
+										  </div>
+										</div>
+										<div class="form-group row">
+										  <label class="col-sm-2 col-form-label">Email Adress</label>
+										  <div class="col-sm-10">
+											<input class="form-control" name= "email" value="{{ users.email }}" type="email" placeholder="johone@dummy.com">
+										  </div>
+										</div>
+										<div class="form-group row">
+										  <label class="col-sm-2 col-form-label">Phone Number</label>
+										  <div class="col-sm-10">
+											<input class="form-control" value="{{ profile_users.mobileNumber}}" type="tel" placeholder="123 456 7890">
+										  </div>
+										</div>
+										<div class="form-group row">
+										  <label class="col-sm-2 col-form-label"></label>
+										  <div class="col-sm-10">
+											<button type="submit" class="btn btn-yellow">Submit</button>
+										  </div>
+										</div>
+									</div>
+							<!-- /.col -->
+								  </form>
+						  </div>
+						  <!-- /.row -->
+						</div>
+				<!-- /.box-body -->
+
 			  </div>
-			  <!-- /.row -->
-			</div>
-			<!-- /.box-body -->
-		  </div>
+
 		  <!-- /.box -->
           <div class="box box-solid bg-black">
 			<div class="box-header with-border">
@@ -105,25 +111,25 @@
 					<div class="form-group row">
 					  <label class="col-sm-2 col-form-label">Street</label>
 					  <div class="col-sm-10">
-						<input class="form-control" type="text" placeholder="A-458, Lorem Ipsum, city">
+						<input class="form-control" type="text" value="{{ profile_users.address_one }}" placeholder="A-458, Lorem Ipsum, city">
 					  </div>
 					</div>
 					<div class="form-group row">
 					  <label class="col-sm-2 col-form-label">City</label>
 					  <div class="col-sm-10">
-						<input class="form-control" type="text" placeholder="Your City">
+						<input class="form-control" value="{{ profile_users.city }}" type="text" placeholder="Your City">
 					  </div>
 					</div>
 					<div class="form-group row">
 					  <label class="col-sm-2 col-form-label">State</label>
 					  <div class="col-sm-10">
-						<input class="form-control" type="text" placeholder="Your State">
+						<input class="form-control" value="{{ profile_users.state }}" type="text" placeholder="Your State">
 					  </div>
 					</div>
 					<div class="form-group row">
 					  <label class="col-sm-2 col-form-label">Post Code</label>
 					  <div class="col-sm-10">
-						<input class="form-control" type="number" placeholder="123456">
+						<input class="form-control" value="{{ profile_users.post_code }}" type="number" placeholder="123456">
 					  </div>
 					</div>
 					<div class="form-group row">
@@ -191,7 +197,9 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    {% endif %}
+		{% endif %}
+		{% endif %}
+
     </section>
     <!-- /.content -->
   </div>

@@ -1,42 +1,36 @@
 from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from .models import CustomUser
 
-# def register(request):
-#   if request.method == 'POST':
-#     # Get form values
-#     first_name = request.POST['first_name']
-#     last_name = request.POST['last_name']
-#     username = request.POST['username']
-#     email = request.POST['email']
-#     password = request.POST['password']
-#     password2 = request.POST['password2']
-#
-#     # Check if passwords match
-#     if password == password2:
-#       # Check username
-#       if User.objects.filter(username=username).exists():
-#         messages.error(request, 'That username is taken')
-#         return redirect('register')
-#       else:
-#         if User.objects.filter(email=email).exists():
-#           messages.error(request, 'That email is being used')
-#           return redirect('register')
-#         else:
-#           # Looks good
-#           user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name)
-#           # Login after register
-#           # auth.login(request, user)
-#           # messages.success(request, 'You are now logged in')
-#           # return redirect('index')
-#           user.save()
-#           messages.success(request, 'You are now registered and can log in')
-#           return redirect('login')
-#     else:
-#       messages.error(request, 'Passwords do not match')
-#       return redirect('register')
-#   else:
-#     return render(request, 'accounts/register.html')
+def register(request):
+  if request.method == 'POST':
+    # Get form values
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    username = request.POST['username']
+    email = request.POST['email']
+    password = request.POST['password']
+    password2 = request.POST['password2']
+    is_active = request.POST['status']
+
+    # Check if passwords match
+    if password == password2:
+      # Check username
+      if User.objects.filter(username=username).exists():
+        return redirect('register')
+      else:
+        if User.objects.filter(email=email).exists():
+          return redirect('register')
+        else:
+          # Looks good
+          user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name, is_active=is_active)
+          user.save()
+          return redirect('login')
+    else:
+      return redirect('register')
+  else:
+    return render(request, 'accounts/register.html')
 
 # Login View Function
 def login(request):
@@ -74,15 +68,38 @@ def logout(request):
 def dashboard(request):
   if request.session.get('member_id', False):
     return render(request, 'accounts/dashboard.html')
-    # if 'login_check' in request.session:
-    #     return render(request, 'accounts/dashboard.html')
-    # else:
-    #     return redirect('login')
 
 # Profile View Function
 def profile(request,user_id):
   users = User.objects.get(pk=user_id)
+  profile_users = CustomUser.objects.get(pk=user_id)
   context = {
-    'users': users
+    'users': users,
+    'profile_users':profile_users
   }
   return render(request, 'accounts/profile.html', context)
+
+# Profile View Function
+def profile1(request):
+  # users = User.objects.get(pk=user_id)
+  # profile_users = CustomUser.objects.get(pk=user_id)
+  # context = {
+  #   'users': users,
+  #   'profile_users':profile_users
+  #}
+  return render(request, 'accounts/profile1.html')
+
+# Profile View Function
+def createclient(request):
+  return render(request, 'accounts/createclient.html')
+
+def update(request,user_id):
+  User.objects.get(pk=user_id)
+  first_name = request.POST['first_name']
+  last_name = request.POST['last_name']
+  email = request.POST['email']
+  User.objects.all().update(first_name=first_name,last_name=last_name,email=email)
+  return render(request, 'dashboard')
+
+
+

@@ -28,9 +28,10 @@
 							{% csrf_token %}
 						<div class="form-body">
 							<div class="row">
+								{% if users %}
 								<div class="col-lg-2">
 									<div class="form-group">
-										<input class="form-control" placeholder="Search By Name" name="first_name" type="text">
+										<input class="form-control" value="{{ users.first_name }}" placeholder="Search By Name" name="first_name" type="text">
 									</div>
 								</div>
 								<div class="col-lg-2">
@@ -55,8 +56,9 @@
 
 								</div>
 								<div class="col-lg-2">
-									<a class="btn btn-lg btn-info btn-file" href=""><i class="fa fa-plus"> Add Client</i></a>
+									<a class="btn btn-lg btn-yellow" href=""><i class="fa fa-plus"> Add Client</i></a>
 								</div>
+								{% endif %}
 							</div>
 						</div>
 						</form>
@@ -151,7 +153,7 @@
                                                 <td> {{ user.date_joined }} </td>
 												<td>
 													<a title="Edit" href="{% url 'profile' user.id %}">Edit</a>
-													<a title="Change Password" href="{% url 'index' %}">Change Password </a>
+													<a title="Change Password" href="">Change Password </a>
 													<a title="Remove" href="javascript:void(0);" data-target="#remove_4" data-toggle="modal"><i class="fa fa-fw fa-trash red"></i></a>
 												</td>
                                             </tr>

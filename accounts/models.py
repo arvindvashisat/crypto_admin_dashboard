@@ -1,24 +1,17 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
-class UserExtra(models.Model):
+class CustomUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    age = models.IntegerField(blank=True,null=True)
-    telephone = models.CharField(max_length=15,blank=True,null=True)
+    contactNumber =  models.CharField(max_length=20, blank=True)
+    mobileNumber =  models.CharField(max_length=20, blank=True)
+    gender = models.CharField(max_length=6)
+    models.DateField(null=True, blank=True)
+    image = models.ImageField(upload_to='profile_image', blank=True)
+    address_one = models.CharField(max_length=100,blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    post_code = models.CharField(max_length=6 , blank=True)
+    state = models.CharField(max_length=20)
+    country = models.CharField(max_length=10)
+    about_you = models.CharField(max_length=100)
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
